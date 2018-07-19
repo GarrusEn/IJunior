@@ -44,7 +44,7 @@ namespace Delegates
 
         }
 
-        public void AddTargetTo(int targetIndex, string target)
+        private void AddTargetTo(int targetIndex, string target)
         {
             string[] newList = new string[MyLists[targetIndex].Length + 1];
             for (int i = 0; i < MyLists[targetIndex].Length; i++)
