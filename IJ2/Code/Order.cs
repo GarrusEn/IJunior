@@ -6,8 +6,7 @@
     public int GetTotalPrice()
     {
         if (Good == null)
-        {
-            System.Console.WriteLine("Товар не подвезли");
+        {            
             return 0;
         }
         return Good.Price * Count;

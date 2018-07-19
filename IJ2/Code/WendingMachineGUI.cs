@@ -16,13 +16,22 @@ class WendingMachineGUI
         switch (command)
         {
             case "help":
-                Console.WriteLine("list\norder\n");
+                Console.WriteLine("list\norder\ntakemymoney\ngetmymoney\n");
                 break;
             case "list":
                 foreach (Good good in Machine.GetProductList())
                 {
                     Console.WriteLine($">{good.Name} [{good.Count}]");
                 }
+                break;
+            case "takemymoney":
+                Console.WriteLine("Положите денежку");
+                int coin = Convert.ToInt32(Console.ReadLine());
+                Machine.AddBalance(coin);
+                break;
+            case "getmymoney":
+                Console.WriteLine("Заберите сдачу");
+                Machine.ClearBalance();
                 break;
             case "order":
                 Console.WriteLine("имя");
@@ -31,7 +40,7 @@ class WendingMachineGUI
                 int count = Convert.ToInt32(Console.ReadLine());
 
                 Order order = new Order();
-                order.Good = Machine.GetProduct(name);                
+                order.Good = Machine.GetProduct(name);
                 order.Count = count;
 
                 Console.WriteLine($"Общая сума - {order.GetTotalPrice()}");

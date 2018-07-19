@@ -5,6 +5,11 @@ class WendingMachine
     public int Balance;
     public GoodsRepository Goods;
 
+    public void AddBalance(int coin)
+    {
+        Balance += coin;
+    }
+
     public int ClearBalance()
     {
         int oldBalance = Balance;
