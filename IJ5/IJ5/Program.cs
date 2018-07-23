@@ -10,8 +10,9 @@ namespace IJ5
     {
         static void Main(string[] args)
         {
-            GameEngine Engine = new GameEngine();
-            Engine.Start();
+            SceneConfig sceneConf = new SceneConfig();
+            Engine engine = new Engine(sceneConf);
+            engine.Start();
         }
     }
 }
