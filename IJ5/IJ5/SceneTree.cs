@@ -64,6 +64,7 @@ namespace IJ5
         string _question;
         Scene LeftNode;
         Scene RightNode;
+        // state - флаг состояния: "-1" - проигрыш, "0" - есть два разветвления, "1" - выигрыш
         int _state;
 
         public Scene(string question, int state)
