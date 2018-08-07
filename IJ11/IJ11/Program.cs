@@ -9,7 +9,7 @@ namespace IJ11
     {
         static void Main(string[] args)
         {
-            Drawer draw = new Drawer(100, 100);
+            DrawManager draw = new DrawManager(100, 100);
 
             // Any pairs points for drow 
             int[] points = {
@@ -31,9 +31,10 @@ namespace IJ11
                 Color.Orange
             };
 
-            draw.DrawMesh(points,colors);
             
 
-        } 
+
+
+        }
     }
 }
