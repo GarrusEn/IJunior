@@ -18,6 +18,19 @@ namespace IJ11
             _drawer.FillRectangle(Brushes.White, new Rectangle(0, 0, WidthCanvas, HeightCanvas));
         }
 
+        public void DrawSquare(int heigh)
+        {
+            //SetSquarePoints(heigh);
+            StartDrow();
+        }
+
+        public void DrawRectangle(int heigh, int width)
+        {
+            //SetRectanglePoints(heigh,width);
+            StartDrow();
+        }
+
+
         public void DrawMesh(int[] points)
         {
             SetPoints(points);
@@ -59,7 +72,6 @@ namespace IJ11
             {
                 DrawLine(_pointManager.GetPoint(i),_pointManager.GetPoint(i+1));                
             }
-
             Save();
         }
 

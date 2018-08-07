@@ -7,8 +7,6 @@ namespace IJ11
     {
         List<Point> _points = new List<Point>();
 
-
-
         // Custom points
         public PointManager(int[] points)
         {            
@@ -30,10 +28,7 @@ namespace IJ11
         public Point GetPoint(int index)
         {
             return _points[index];
-        }
-
-
-        
+        }                
 
         // Check valid points
         void CheckPoints(int[] points)
