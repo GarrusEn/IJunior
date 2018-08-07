@@ -11,8 +11,7 @@ namespace IJ11
 
         // Custom points
         public PointManager(int[] points)
-        {
-            
+        {            
             CheckPoints(points);
 
             for (int i = 0; i < (points.Length) - 1; i++)

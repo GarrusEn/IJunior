@@ -21,6 +21,21 @@ namespace IJ11
         public void DrawMesh(int[] points)
         {
             SetPoints(points);
+            _coloreManager = new ColoreManager();
+            StartDrow();
+        }
+
+        public void DrawMesh(int[] points, Color color)
+        {
+            SetPoints(points);
+            _coloreManager = new ColoreManager(color);
+            StartDrow();
+        }
+
+        public void DrawMesh(int[] points,Color[] colors)
+        {
+            SetPoints(points);
+            _coloreManager = new ColoreManager(colors);
             StartDrow();
         }
 
@@ -40,17 +55,18 @@ namespace IJ11
 
         void StartDrow()
         {
-            for (int i = 0; i < _pointManager.GetCount(); i++)
+            for (int i = 0; i < _pointManager.GetCount()-1; i++)
             {
-                DrawLine(_pointManager.GetPoint(i),_pointManager.GetPoint(i+1));
-                i++;
+                DrawLine(_pointManager.GetPoint(i),_pointManager.GetPoint(i+1));                
             }
+
+            Save();
         }
 
         void DrawLine(Point p1,Point p2)
         {
-            //Pen pen = new Pen(color, 2);
-            //_drawer.DrawLine();
+            Pen pen = new Pen(_coloreManager.GetColor(), 2);
+            _drawer.DrawLine(pen,p1.GetX(),p1.GetY(),p2.GetX(),p2.GetY());
         }
 
         void Save()
