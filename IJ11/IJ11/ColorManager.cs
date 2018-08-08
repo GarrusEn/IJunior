@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace IJ11
 {
-    class ColoreManager
+    class ColorManager
     {
         List<ColorNode> colors = new List<ColorNode>();
         Color _color;
@@ -13,21 +13,21 @@ namespace IJ11
         int state;
 
         // Default color
-        public ColoreManager()
+        public ColorManager()
         {
             _color = Color.Red;
             state = -1;
         }
 
         // Custom color
-        public ColoreManager(Color color)
+        public ColorManager(Color color)
         {
             _color = color;
             state = 0;
         }
 
         // Several colors
-        public ColoreManager(Color[] Colors)
+        public ColorManager(Color[] Colors)
         {
             for (int i = 0; i < Colors.Length; i++)
             {

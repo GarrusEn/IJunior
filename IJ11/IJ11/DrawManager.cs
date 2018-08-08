@@ -7,52 +7,17 @@ namespace IJ11
     {
         Bitmap _canvas;
         Graphics _drawer;
-        Color _defaultColor = Color.Red;
         PointManager _pointManager;
-        ColoreManager _coloreManager;
+        protected ColorManager _colorManager;
 
         public DrawManager(int WidthCanvas, int HeightCanvas)
         {
             _canvas = new Bitmap(WidthCanvas, HeightCanvas);
             _drawer = Graphics.FromImage(_canvas);
             _drawer.FillRectangle(Brushes.White, new Rectangle(0, 0, WidthCanvas, HeightCanvas));
-        }
+        }      
 
-        public void DrawSquare(int heigh)
-        {
-            //SetSquarePoints(heigh);
-            StartDrow();
-        }
-
-        public void DrawRectangle(int heigh, int width)
-        {
-            //SetRectanglePoints(heigh,width);
-            StartDrow();
-        }
-
-
-        public void DrawMesh(int[] points)
-        {
-            SetPoints(points);
-            _coloreManager = new ColoreManager();
-            StartDrow();
-        }
-
-        public void DrawMesh(int[] points, Color color)
-        {
-            SetPoints(points);
-            _coloreManager = new ColoreManager(color);
-            StartDrow();
-        }
-
-        public void DrawMesh(int[] points,Color[] colors)
-        {
-            SetPoints(points);
-            _coloreManager = new ColoreManager(colors);
-            StartDrow();
-        }
-
-        void SetPoints(int[] points)
+        public void SetPoints(int[] points)
         {
             _pointManager = new PointManager(points);
         }
@@ -66,7 +31,7 @@ namespace IJ11
             }
         }
 
-        void StartDrow()
+       public  void StartDrow()
         {
             for (int i = 0; i < _pointManager.GetCount()-1; i++)
             {
@@ -77,7 +42,7 @@ namespace IJ11
 
         void DrawLine(Point p1,Point p2)
         {
-            Pen pen = new Pen(_coloreManager.GetColor(), 2);
+            Pen pen = new Pen(_colorManager.GetColor(), 2);
             _drawer.DrawLine(pen,p1.GetX(),p1.GetY(),p2.GetX(),p2.GetY());
         }
 
@@ -87,4 +52,30 @@ namespace IJ11
             _canvas.Save("canvas.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
         }
     }
+
+    class Mesh : DrawManager
+    {
+        public Mesh(int WidthCanvas, int HeightCanvas, int[] points) : base(WidthCanvas, HeightCanvas)
+        {
+            SetPoints(points);
+            _colorManager = new ColorManager();
+            StartDrow();
+        }
+
+        public Mesh(int WidthCanvas, int HeightCanvas, int[] points, Color color) : base(WidthCanvas, HeightCanvas)
+        {
+            SetPoints(points);
+            _colorManager = new ColorManager(color);
+            StartDrow();
+        }
+
+        public Mesh(int WidthCanvas, int HeightCanvas, int[] points, Color[] colors) : base(WidthCanvas, HeightCanvas)
+        {
+            SetPoints(points);
+            _colorManager = new ColorManager(colors);
+            StartDrow();
+        }
+    }
+
+     
 }

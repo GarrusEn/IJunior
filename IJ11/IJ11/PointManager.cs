@@ -7,7 +7,7 @@ namespace IJ11
     {
         List<Point> _points = new List<Point>();
 
-        // Custom points
+        // Set points
         public PointManager(int[] points)
         {            
             CheckPoints(points);
@@ -18,8 +18,7 @@ namespace IJ11
                 i++;
             }
         }
-        
-        
+     
         public int GetCount()
         {
             return _points.Count;
