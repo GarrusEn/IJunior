@@ -10,14 +10,14 @@ namespace IJ11
         PointManager _pointManager;
         protected ColorManager _colorManager;
 
-        public DrawManager(int WidthCanvas, int HeightCanvas)
+        protected DrawManager(int WidthCanvas, int HeighCanvas)
         {
-            _canvas = new Bitmap(WidthCanvas, HeightCanvas);
+            _canvas = new Bitmap(WidthCanvas, HeighCanvas);
             _drawer = Graphics.FromImage(_canvas);
-            _drawer.FillRectangle(Brushes.White, new Rectangle(0, 0, WidthCanvas, HeightCanvas));
-        }      
+            _drawer.FillRectangle(Brushes.White, new Rectangle(0, 0, WidthCanvas, HeighCanvas));
+        }
 
-        public void SetPoints(int[] points)
+        protected void SetPoints(int[] points)
         {
             _pointManager = new PointManager(points);
         }
@@ -31,19 +31,19 @@ namespace IJ11
             }
         }
 
-       public  void StartDrow()
+        protected void StartDrow()
         {
-            for (int i = 0; i < _pointManager.GetCount()-1; i++)
+            for (int i = 0; i < _pointManager.GetCount() - 1; i++)
             {
-                DrawLine(_pointManager.GetPoint(i),_pointManager.GetPoint(i+1));                
+                DrawLine(_pointManager.GetPoint(i), _pointManager.GetPoint(i + 1));
             }
             Save();
         }
 
-        void DrawLine(Point p1,Point p2)
+        void DrawLine(Point p1, Point p2)
         {
             Pen pen = new Pen(_colorManager.GetColor(), 2);
-            _drawer.DrawLine(pen,p1.GetX(),p1.GetY(),p2.GetX(),p2.GetY());
+            _drawer.DrawLine(pen, p1.GetX(), p1.GetY(), p2.GetX(), p2.GetY());
         }
 
         void Save()
@@ -53,23 +53,23 @@ namespace IJ11
         }
     }
 
-    class Mesh : DrawManager
+    class DrawMesh : DrawManager
     {
-        public Mesh(int WidthCanvas, int HeightCanvas, int[] points) : base(WidthCanvas, HeightCanvas)
+        public DrawMesh(int WidthCanvas, int HeighCanvas, int[] points) : base(WidthCanvas, HeighCanvas)
         {
             SetPoints(points);
             _colorManager = new ColorManager();
             StartDrow();
         }
 
-        public Mesh(int WidthCanvas, int HeightCanvas, int[] points, Color color) : base(WidthCanvas, HeightCanvas)
+        public DrawMesh(int WidthCanvas, int HeighCanvas, int[] points, Color color) : base(WidthCanvas, HeighCanvas)
         {
             SetPoints(points);
             _colorManager = new ColorManager(color);
             StartDrow();
         }
 
-        public Mesh(int WidthCanvas, int HeightCanvas, int[] points, Color[] colors) : base(WidthCanvas, HeightCanvas)
+        public DrawMesh(int WidthCanvas, int HeighCanvas, int[] points, Color[] colors) : base(WidthCanvas, HeighCanvas)
         {
             SetPoints(points);
             _colorManager = new ColorManager(colors);
@@ -77,5 +77,18 @@ namespace IJ11
         }
     }
 
-     
+    class DrowRectangle : DrawManager
+    {
+        int _heigh;
+        int _width;
+
+        public DrowRectangle(int WidthCanvas, int HeightCanvas, int HeighRectangle, int WidthRectangle) : base(WidthCanvas, HeightCanvas)
+        {
+            _heigh = HeighRectangle;
+            _width = WidthRectangle;
+
+        }
+
+
+    }
 }

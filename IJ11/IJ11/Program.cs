@@ -31,8 +31,7 @@ namespace IJ11
                 Color.Orange
             };
 
-            Mesh mesh = new Mesh(100, 100, points, colors);
-
+            DrawMesh mesh = new DrawMesh(100, 100, points, colors);
 
 
         }
