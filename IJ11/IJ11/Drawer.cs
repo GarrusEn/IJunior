@@ -14,6 +14,8 @@ namespace IJ11
         PointManager _points;
         Palette _palette;
 
+        
+
         public Drawer(PointManager Points, Palette Palette, Canvas Canvas)
         {
             _points = Points;
@@ -21,7 +23,7 @@ namespace IJ11
             _canvas = new Bitmap((int)Canvas.GetWidth(), (int)Canvas.GetHeight());
             _drawer = Graphics.FromImage(_canvas);
             _drawer.FillRectangle(Brushes.White, new Rectangle(0, 0, (int)Canvas.GetWidth(), (int)Canvas.GetHeight()));
-        }
+        }       
 
         public void StartDrow()
         {
@@ -34,7 +36,7 @@ namespace IJ11
 
         void DrawLine(Point p1, Point p2, Color color)
         {
-            Pen pen = new Pen(color, 2);
+            Pen pen = new Pen(color,0.1f);
             _drawer.DrawLine(pen, p1.GetX(), p1.GetY(), p2.GetX(), p2.GetY());
         }
 

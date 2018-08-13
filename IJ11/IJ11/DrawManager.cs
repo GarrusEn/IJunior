@@ -88,6 +88,25 @@ namespace IJ11
         public override void Draw()
         {
             base.Draw();
+        }        
+    }
+
+    class DrawTriangle : DrawManager
+    {
+        public DrawTriangle(float CanvasHeigh, float CanvasWidth, float TriangleHeigh) : base(CanvasHeigh, CanvasWidth)
+        {
+            _points.SetTrianglePoints(TriangleHeigh);
+        }
+
+        public DrawTriangle(float CanvasHeigh, float CanvasWidth, float TriangleHeigh, Color[] Colors) : base(CanvasHeigh, CanvasWidth)
+        {
+            _points.SetTrianglePoints(TriangleHeigh);
+            _palette = new Palette(Colors);
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
         }
     }
 }

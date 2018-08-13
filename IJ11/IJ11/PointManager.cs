@@ -10,6 +10,8 @@ namespace IJ11
     {
         Canvas _canvas;
         List<Point> _points;
+        List<Point> _pointsCenterFloorsForTriangle;
+
 
         public PointManager(Canvas canvas)
         {
@@ -60,6 +62,57 @@ namespace IJ11
             _points.AddRange(new List<Point> { r1, r2, r3, r4, r1 });
         }
 
+        public void SetTrianglePoints(float TriangleHeigh)
+        {
+            int floors = HowFloorTriangle(TriangleHeigh);
+            float SquareWidth = TriangleHeigh / floors;
+            Point centerTriangle = _canvas.GetCentreCanvas();
+            SetCenterFloors(centerTriangle, floors, SquareWidth);
+
+            for (int i = _pointsCenterFloorsForTriangle.Count() - 1; i >= 0; i--)
+            {
+                SetSquareCentersAtFloor(i + 1, SquareWidth);
+            }
+        }
+
+        void SetCenterFloors(Point CenterTriangle, int floors, float SquareWidth)
+        {
+            _pointsCenterFloorsForTriangle = new List<Point>();
+            Point DownPointTriangle = new Point(CenterTriangle.GetX(), CenterTriangle.GetY() + ((floors * SquareWidth) / 2) - (SquareWidth / 2));
+            _pointsCenterFloorsForTriangle.Add(DownPointTriangle);
+            for (int i = 1; i < floors; i++)
+            {
+                Point p = new Point(_pointsCenterFloorsForTriangle[i - 1].GetX(), CenterTriangle.GetY() + SquareWidth);
+                _pointsCenterFloorsForTriangle.Add(p);
+            }
+        }
+
+        void SetSquareCentersAtFloor(int floor, float SquareWidth)
+        {
+            List<Point> _pointsInLine = new List<Point>();
+            float WidthLine = floor * SquareWidth;
+            Point LeftPoint = new Point(_pointsCenterFloorsForTriangle[floor - 1].GetX() - WidthLine / 2, _pointsCenterFloorsForTriangle[floor - 1].GetY() );
+            _pointsInLine.Add(LeftPoint);
+            SetSquarePoints(SquareWidth, LeftPoint);
+            for (int i = 1; i < floor; i++)
+            {
+                Point p = new Point(_pointsInLine.Last().GetX() + SquareWidth, _pointsInLine.Last().GetY() );
+                _pointsInLine.Add(p);
+                SetSquarePoints(SquareWidth, p);
+            }
+        }
+
+
+        int HowCountSquare(int Floors)
+        {
+            return (Floors * (Floors + 1)) / 2;
+        }
+
+        int HowFloorTriangle(float TriangleHeigh)
+        {
+            return (int)TriangleHeigh;
+        }
+
         void CheckPoints(float[] points)
         {
             if (points.Length % 2 != 0)
@@ -77,6 +130,8 @@ namespace IJ11
         {
             return _points[index];
         }
+
+
     }
 
     class Point

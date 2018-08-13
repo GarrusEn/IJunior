@@ -37,8 +37,12 @@ namespace IJ11
             //DrawSquare ds = new DrawSquare(100, 100, 45);
             //ds.Draw();
 
-            DrawRectangle dr = new DrawRectangle(100, 100, 30, 60, Color.Aquamarine);
-            dr.Draw();
+            //DrawRectangle dr = new DrawRectangle(100, 100, 30, 60, Color.Aquamarine);
+            //dr.Draw();
+
+            DrawTriangle dt = new DrawTriangle(100, 100, 90);
+            dt.Draw();
+
         }
     }
 }
