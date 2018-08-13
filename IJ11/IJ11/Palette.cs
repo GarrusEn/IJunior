@@ -3,45 +3,45 @@ using System.Drawing;
 
 namespace IJ11
 {
-    class ColorManager
+    class Palette
     {
-        List<ColorNode> colors = new List<ColorNode>();
+        List<ColorNode> _colors = new List<ColorNode>();
         Color _color;
         ColorNode _currentColor;
 
-        // State of color manager: -1 default color, 0 concrette color, 1 several colors 
+        //State of color plette: -1 default, 0 concrette color, 1 several colors
         int state;
 
         // Default color
-        public ColorManager()
+        public Palette()
         {
             _color = Color.Red;
             state = -1;
         }
 
         // Custom color
-        public ColorManager(Color color)
+        public Palette(Color Color)
         {
-            _color = color;
+            _color = Color;
             state = 0;
         }
 
         // Several colors
-        public ColorManager(Color[] Colors)
+        public Palette(Color[] Colors)
         {
             for (int i = 0; i < Colors.Length; i++)
             {
-                colors.Add(new ColorNode(Colors[i]));
+                _colors.Add(new ColorNode(Colors[i]));
                 if (i > 0)
                 {
-                    colors[i - 1].SetNextColor(colors[i]);
+                    _colors[i - 1].SetNextColor(_colors[i]);
                 }
-                if (i == colors.Count - 1)
+                if (i == _colors.Count - 1)
                 {
-                    colors[i].SetNextColor(colors[0]);
+                    _colors[i].SetNextColor(_colors[0]);
                 }
             }
-            _currentColor = colors[0];
+            _currentColor = _colors[0];
             state = 1;
         }
 
@@ -64,10 +64,11 @@ namespace IJ11
         ColorNode _nextNode;
         Color _color;
 
-        public ColorNode(Color color)
+        public ColorNode(Color Color)
         {
-            _color = color;
+            _color = Color;
         }
+
         public void SetNextColor(ColorNode NextColorNode)
         {
             _nextNode = NextColorNode;
@@ -77,6 +78,7 @@ namespace IJ11
         {
             return _nextNode;
         }
+
         public Color GetColor()
         {
             return _color;

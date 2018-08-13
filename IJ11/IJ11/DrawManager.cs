@@ -1,94 +1,93 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace IJ11
 {
     class DrawManager
     {
-        Bitmap _canvas;
-        Graphics _drawer;
-        PointManager _pointManager;
-        protected ColorManager _colorManager;
+        protected Canvas _canvas;
+        protected Palette _palette;
+        protected PointManager _points;
+        protected Drawer draw;
 
-        protected DrawManager(int WidthCanvas, int HeighCanvas)
+        protected DrawManager(float CanvasHeigh, float CanvasWidth)
         {
-            _canvas = new Bitmap(WidthCanvas, HeighCanvas);
-            _drawer = Graphics.FromImage(_canvas);
-            _drawer.FillRectangle(Brushes.White, new Rectangle(0, 0, WidthCanvas, HeighCanvas));
+            _canvas = new Canvas(CanvasHeigh, CanvasWidth);
+            _points = new PointManager(_canvas);
+            _palette = new Palette();
         }
 
-        protected void SetPoints(int[] points)
+        virtual public void Draw()
         {
-            _pointManager = new PointManager(points);
-        }
-
-        // Print points
-        void PrintPoints()
-        {
-            for (int i = 0; i < _pointManager.GetCount(); i++)
-            {
-                Console.WriteLine($"point X:{_pointManager.GetPoint(i).GetX()} Y:{_pointManager.GetPoint(i).GetY()}\n");
-            }
-        }
-
-        protected void StartDrow()
-        {
-            for (int i = 0; i < _pointManager.GetCount() - 1; i++)
-            {
-                DrawLine(_pointManager.GetPoint(i), _pointManager.GetPoint(i + 1));
-            }
-            Save();
-        }
-
-        void DrawLine(Point p1, Point p2)
-        {
-            Pen pen = new Pen(_colorManager.GetColor(), 2);
-            _drawer.DrawLine(pen, p1.GetX(), p1.GetY(), p2.GetX(), p2.GetY());
-        }
-
-        void Save()
-        {
-            _drawer.Flush();
-            _canvas.Save("canvas.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            draw = new Drawer(_points, _palette, _canvas);
+            draw.StartDrow();
         }
     }
 
     class DrawMesh : DrawManager
     {
-        public DrawMesh(int WidthCanvas, int HeighCanvas, int[] points) : base(WidthCanvas, HeighCanvas)
+        public DrawMesh(float CanvasHeigh, float CanvasWidth, float[] Points) : base(CanvasHeigh, CanvasWidth)
         {
-            SetPoints(points);
-            _colorManager = new ColorManager();
-            StartDrow();
+            _points.SetMeshPoints(Points);
         }
 
-        public DrawMesh(int WidthCanvas, int HeighCanvas, int[] points, Color color) : base(WidthCanvas, HeighCanvas)
+        public DrawMesh(float CanvasHeigh, float CanvasWidth, float[] Points, Color Color) : base(CanvasHeigh, CanvasWidth)
         {
-            SetPoints(points);
-            _colorManager = new ColorManager(color);
-            StartDrow();
+            _points.SetMeshPoints(Points);
+            _palette = new Palette(Color);
         }
 
-        public DrawMesh(int WidthCanvas, int HeighCanvas, int[] points, Color[] colors) : base(WidthCanvas, HeighCanvas)
+        public DrawMesh(float CanvasHeigh, float CanvasWidth, float[] Points, Color[] Colors) : base(CanvasHeigh, CanvasWidth)
         {
-            SetPoints(points);
-            _colorManager = new ColorManager(colors);
-            StartDrow();
+            _points.SetMeshPoints(Points);
+            _palette = new Palette(Colors);
+        }
+
+        override public void Draw()
+        {
+            base.Draw();
         }
     }
 
-    class DrowRectangle : DrawManager
+    class DrawRectangle : DrawManager
     {
-        int _heigh;
-        int _width;
-
-        public DrowRectangle(int WidthCanvas, int HeightCanvas, int HeighRectangle, int WidthRectangle) : base(WidthCanvas, HeightCanvas)
+        public DrawRectangle(float CanvasHeigh, float CanvasWidth, float RectangleWidth, float RectangleHeight) : base(CanvasHeigh, CanvasWidth)
         {
-            _heigh = HeighRectangle;
-            _width = WidthRectangle;
-
+            _points.SetRectanglePoints(RectangleWidth, RectangleHeight);
         }
 
+        public DrawRectangle(float CanvasHeigh, float CanvasWidth, float RectangleWidth, float RectangleHeight, Color Color) : base(CanvasHeigh, CanvasWidth)
+        {
+            _points.SetRectanglePoints(RectangleWidth, RectangleHeight);
+            _palette = new Palette(Color);
+        }
 
+        public override void Draw()
+        {
+            base.Draw();
+        }
+    }
+
+    class DrawSquare : DrawManager
+    {
+        public DrawSquare(float CanvasHeigh, float CanvasWidth, float SquareWidth) : base(CanvasHeigh, CanvasWidth)
+        {
+            _points.SetSquarePoints(SquareWidth);
+        }
+
+        public DrawSquare(float CanvasHeigh, float CanvasWidth, float SquareWidth, Color Color) : base(CanvasHeigh, CanvasWidth)
+        {
+            _points.SetSquarePoints(SquareWidth);
+            _palette = new Palette(Color);
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
+        }
     }
 }

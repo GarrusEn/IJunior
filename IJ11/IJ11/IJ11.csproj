@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColorManager.cs" />
+    <Compile Include="Drawer.cs" />
     <Compile Include="DrawManager.cs" />
+    <Compile Include="Palette.cs" />
     <Compile Include="PointManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
